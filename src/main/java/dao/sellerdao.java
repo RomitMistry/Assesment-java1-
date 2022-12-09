@@ -4,111 +4,100 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import connection.customerconn;
-import connection.dbconnection;
+import connection.DBConnection;
 import model.Seller;
 
-public class sellerdao {
-
-	public static void insertseller(Seller s) {
+public class SellerDao {
+	public static void insertSeller(Seller s) {
 		try {
-			Connection conn = dbconnection.createConnection();
-			String sql = "insert into seller_regs (yourname,email,phone,Passwords) values(?,?,?,?)";
+			Connection conn = DBConnection.createConnection();
+			String sql="insert into seller(name,contact,address,email,password) values(?,?,?,?,?)";
 			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setString(1, s.getyourname());
-			pst.setString(2, s.getemail());
-			pst.setLong(3, s.getphone());
-			pst.setString(4, s.getPasswords());
+			pst.setString(1, s.getName());
+			pst.setLong(2, s.getContact());
+			pst.setString(3, s.getAddress());
+			pst.setString(4, s.getEmail());
+			pst.setString(5, s.getPassword());
 			pst.executeUpdate();
 			System.out.println("data inserted");
-		} 
-		 catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
-	
-	public static Seller loginseller (Seller s) {
+	public static Seller loginSeller(Seller s) {
 		Seller s1 = null;
 		try {
-			Connection conn = dbconnection.createConnection();
-			String sql = "select * from seller_regs where email=? and Passwords=?";
+			Connection conn = DBConnection.createConnection();
+			String sql="select * from seller where email=? and password=?";
 			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setString(1, s.getemail());
-			pst.setString(2, s.getPasswords());
+			pst.setString(1, s.getEmail());
+			pst.setString(2, s.getPassword());
 			ResultSet rs = pst.executeQuery();
 			if(rs.next()) {
 				s1 = new Seller();
-				s1.setID(rs.getInt("ID"));
-				s1.setName(rs.getString("yourname"));
-				s1.setemail(rs.getString("email"));
-				s1.setPasswords(rs.getString("Passwords"));
-				s1.setphone(rs.getLong("phone"));
-				           }
-			
-		  } 
-		catch (Exception e)
-		{
+				s1.setId(rs.getInt("id"));
+				s1.setName(rs.getString("name"));
+				s1.setContact(rs.getLong("contact"));
+				s1.setAddress(rs.getString("address"));
+				s1.setEmail(rs.getString("email"));
+				s1.setPassword(rs.getString("password"));
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return s1;
-		
 	}
-	public static void updateseller(Seller s) {
+	public static void updateSeller(Seller s) {
 		try {
-			Connection conn = dbconnection.createConnection();
-			String sql="update seller_regs set yourname=?,phone=?, email=? where ID=?";
+			Connection conn = DBConnection.createConnection();
+			String sql="update seller set name=?,contact=?,address=?,email=? where id=?";
 			PreparedStatement pst = conn.prepareStatement(sql);
-	        pst.setString(1, s.getyourname());
-	        pst.setLong(2, s.getphone());
-	        pst.setString(3, s.getemail());
-	        pst.setInt(4, s.getID());
-	        pst.executeUpdate();
+			pst.setString(1, s.getName());
+			pst.setLong(2, s.getContact());
+			pst.setString(3, s.getAddress());
+			pst.setString(4, s.getEmail());
+			pst.setInt(5, s.getId());
+			pst.executeUpdate();
 			System.out.println("data updated");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void updatepassword(String email ,String np ) {
+	public static boolean checkPassword(String email,String pass) {
+		boolean flag = false;
 		try {
-			Connection conn = customerconn.createConnection();
-			String sql = "update seller_regs set Passwords=? where email=? ";
+			Connection conn = DBConnection.createConnection();
+			String sql="select * from seller where email=? and password=?";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, email);
+			pst.setString(2, pass);
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()) {
+				flag = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return flag;
+	}
+	public static void updatePassword(String email,String np) {
+		try {
+			Connection conn = DBConnection.createConnection();
+			String sql="update seller set password=? where email=?";
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setString(1, np);
 			pst.setString(2, email);
 			pst.executeUpdate();
 			System.out.println("pass updated");
-			}
-		catch ( Exception e ) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static boolean checkPassword(String email,String Passwords) {
-		boolean flag = false;
-		try {
-			Connection conn = dbconnection.createConnection();
-			String sql="select * from seller_regs where email=? and Passwords=?";
-			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setString(1, email);
-			pst.setString(2, Passwords);
-			ResultSet rs = pst.executeQuery();
-			if(rs.next()) {
-				flag = true;
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return flag;
 	}
-	
-	
 	public static boolean checkEmail(String email) {
 		boolean flag = false;
 		try {
-			Connection conn = customerconn.createConnection();
-			String sql="select * from seller_regs where email=?";
+			Connection conn = DBConnection.createConnection();
+			String sql="select * from seller where email=?";
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setString(1, email);
 			ResultSet rs = pst.executeQuery();
@@ -120,7 +109,4 @@ public class sellerdao {
 		}
 		return flag;
 	}
-	
-	
-	 
 }

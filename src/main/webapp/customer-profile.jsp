@@ -1,7 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+
 <!DOCTYPE html>
+<%@page import="model.Customer"%>
+<%@page import="model.Seller"%>
 <html lang="zxx">
+
 <head>
 <title>Bootie Ecommerce Bootstrap Responsive Web Template |
 	Contact :: W3layouts</title>
@@ -41,67 +49,64 @@
 </head>
 
 <body>
+<%Customer c1 = null;
+if(session.getAttribute("data")!=null){
+	c1 = (Customer)session.getAttribute("data");
+}
+else{
+	response.sendRedirect("customer-profile.jsp");
+}
+%>
 
 	<!-- mian-content -->
 	<div class="main-banner inner" id="home">
 		<!-- header -->
 		<header class="header">
-			<div class="container-fluid px-lg-5">
-				<!-- nav -->
-				<nav class="py-4">
-					<div id="logo">
-						<h1>
-							<a href="Index.jsp"><span class="fa fa-bold"
-								aria-hidden="true"></span>ootie</a>
-						</h1>
-					</div>
-					<!-- <label for="drop" class="toggle">Menu</label> <input
-						type="checkbox" id="drop" />
-					<ul class="menu mt-2">
-						<li><a href="Index.jsp">Home</a></li>
-						<li>
-							First Tier Drop Down <label for="drop-2" class="toggle">Drop
-								Down <span class="fa fa-angle-down" aria-hidden="true"></span>
-						</label> <a href="#">Login <span class="fa fa-angle-down"
-								aria-hidden="true"></span></a> <input type="checkbox" id="drop-2" />
-							<ul>
-								<li><a href="Customer.jsp">customer</a></li>
-								<li><a href="seller.jsp">Seller</a></li>
-								<li><a href="admin.jsp">Admin</a></li>
-							</ul>
-						</li>
-					</ul> -->
+            <div class="container-fluid px-lg-5">
+                <!-- nav -->
+                <nav class="py-4">
+                    <div id="logo">
+                        <h1> <a href="index.html"><span class="fa fa-bold" aria-hidden="true"></span>ootie</a></h1>
+                    </div>
 
-					<label for="drop" class="toggle">Menu</label> <input
-						type="checkbox" id="drop" />
-					<ul class="menu mt-2">
-						<li><a href="sellerlog.jsp">Home</a></li>
-						<!-- <li>
-							First Tier Drop Down <label for="drop-2" class="toggle">Drop
-								Down <span class="fa fa-angle-down" aria-hidden="true"></span>
-						</label> <a href="#">REGISTRATION <span class="fa fa-angle-down"
-								aria-hidden="true"></span></a> <input type="checkbox" id="drop-2" />
-							<ul>
-								<li><a href="Customer.jsp">customer</a></li>
-								<li><a href="seller.jsp">Seller</a></li>
-							</ul>
-						</li> -->
-					</ul>
-
-
-
-				</nav>
-				<!-- //nav -->
-			</div>
-		</header>
+                    <label for="drop" class="toggle">Menu</label>
+                    <input type="checkbox" id="drop" />
+                    <ul class="menu mt-2">
+                        <li class="active"><a href="customer-index.jsp">Home</a></li>
+                        <li>
+                            <!-- First Tier Drop Down -->
+                            <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
+                            <a href="#">Product <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                            <input type="checkbox" id="drop-2" />
+                            <ul>
+                                <li><a href="seller-upload-product.jsp">Upload Product</a></li>
+                                <li><a href="customer-registration.jsp">Manage Product</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <!-- First Tier Drop Down -->
+                            <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
+                            <a href="#"><%=c1.getName() %> <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                            <input type="checkbox" id="drop-2" />
+                            <ul>
+                                <li><a href="customer-profile.jsp">Profile</a></li>
+                                <li><a href="customer-change-password.jsp">Change Password</a></li>
+                                <li><a href="customerlogout.jsp">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- //nav -->
+            </div>
+        </header>
 		<!-- //header -->
 
 	</div>
 	<!--//main-content-->
 	<!---->
 	<ol class="breadcrumb">
-		
-		<li class="breadcrumb-item active"></li>
+		<li class="breadcrumb-item"><a href="customer-index.jsp">Home</a></li>
+		<li class="breadcrumb-item active">CUSTOMER PROFILE</li>
 	</ol>
 	<!---->
 	<!--// mian-content -->
@@ -109,30 +114,25 @@
 	<section class="ab-info-main py-5">
 		<div class="container py-3">
 			<h3 class="tittle text-center">
-				<span class="sub-tittle"></span>Seller FORGOT PASSWORD
+				<span class="sub-tittle"></span>Customer Profile
 			</h3>
 			<div class="row contact-main-info mt-5">
 				<div class="col-md-12 contact-right-content">
-					<form action="Sellercontroller" method="post">
-						<input type="email" class="email" name="email" placeholder="Email" required="">
-		                          
+					<form action="CustomerController" method="post">
+						<input type="hidden" name="id" value="<%=c1.getId()%>">
+						<input type="text" name="name" value="<%=c1.getName()%>">
+						<input type="text" name="contact" value="<%=c1.getContact()%>"> 
+						<input type="text" name="address" value="<%=c1.getAddress()%>"> 
+						<input type="email" name="email" value="<%=c1.getEmail()%>"> 
+						
 						<div class="text-center mt-3">
-							<input type="submit" value="getotp"  name="action">
-							  
+							<input type="submit" name="action" value="update">
 						</div>
 					</form>
-				
 				</div>
-			<%-- 	 <%String regmsg = (String)request.getAttribute("regmsg"); %>
-            	<%if(regmsg!=null){ %>
-            		<%out.print(regmsg); %>
-            	<%} %>
-            	
-            	<%String msg1 = (String)request.getAttribute("validate"); %>
-            	<%if(msg1!=null){ %>
-            		<%out.print(msg1); %>
-            	<%} %>   --%>
-				<!-- <div class="col-md-6 contact-left-content">
+			</div>
+		</div>
+		<!-- <div class="col-md-6 contact-left-content">
                     <div class="address-con">
                         <h4 class="mb-2"><span class="fa fa-phone-square" aria-hidden="true"></span> Phone</h4>
                         <p>+121 098 8907 9987</p>
@@ -166,12 +166,12 @@
 
 	<!-- //contact -->
 	<!-- footer -->
-	<!-- <footer>
+	<footer>
 		<div class="container">
 			<div class="row footer-top">
 				<div class="col-lg-4 footer-grid_section_w3layouts">
 					<h2 class="logo-2 mb-lg-4 mb-3">
-						<a href="Index.jsp"><span class="fa fa-bold"
+						<a href="index.html"><span class="fa fa-bold"
 							aria-hidden="true"></span>ootie</a>
 					</h2>
 					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -211,7 +211,7 @@
 						<div class="col-md-4 footer-grid_section_w3layouts">
 							<h3 class="footer-title text-uppercase text-wh mb-lg-4 mb-3">Information</h3>
 							<ul class="list-unstyled w3layouts-icons">
-								<li><a href="Index.jsp">Home</a></li>
+								<li><a href="index.html">Home</a></li>
 								<li class="mt-3"><a href="about.html">About Us</a></li>
 								<li class="mt-3"><a href="#">Gallery</a></li>
 								<li class="mt-3"><a href="#">Services</a></li>
@@ -219,7 +219,7 @@
 							</ul>
 						</div>
 						<div class="col-md-4 footer-grid_section_w3layouts">
-							social icons
+							<!-- social icons -->
 							<div class="agileinfo_social_icons">
 								<h3 class="footer-title text-uppercase text-wh mb-lg-4 mb-3">Customer
 									Service</h3>
@@ -232,7 +232,7 @@
 									<li class="mt-3"><a href="#">Privacy Plolicy</a></li>
 								</ul>
 							</div>
-							social icons
+							<!-- social icons -->
 						</div>
 						<div class="col-md-4 footer-grid_section_w3layouts my-md-0 my-5">
 							<h3 class="footer-title text-uppercase text-wh mb-lg-4 mb-3">Contact
@@ -262,15 +262,16 @@
 							© 2019 Bootie. All rights reserved | Design by <a
 								href="http://w3layouts.com"> W3layouts.</a>
 						</p>
-						move top icon
+						<!-- move top icon -->
 						<a href="#home" class="move-top text-right col-md-2"><span
 							class="fa fa-long-arrow-up" aria-hidden="true"></span></a>
-						//move top icon
+						<!-- //move top icon -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</footer>
-	//footer -->
+	<!-- //footer -->
 </body>
+
 </html>

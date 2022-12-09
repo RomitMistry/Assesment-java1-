@@ -45,48 +45,40 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- mian-content -->
     <div class="main-banner inner" id="home">
         <!-- header -->
-        <header class="header">
+      <header class="header">
             <div class="container-fluid px-lg-5">
                 <!-- nav -->
                 <nav class="py-4">
                     <div id="logo">
                         <h1> <a href="index.html"><span class="fa fa-bold" aria-hidden="true"></span>ootie</a></h1>
                     </div>
+
                     <label for="drop" class="toggle">Menu</label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu mt-2">
-                        <!-- <li><a href="index.html">Home</a></li> -->
+                        <li class="active"><a href="index.jsp">Home</a></li>
+                        <li>
+                            <!-- First Tier Drop Down -->
+                            <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
+                            <a href="#">Registration <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                            <input type="checkbox" id="drop-2" />
+                            <ul>
+                                <li><a href="seller-registration.jsp">Seller</a></li>
+                                <li><a href="customer-registration.jsp">Customer</a></li>
+                            </ul>
+                        </li>
                         <li>
                             <!-- First Tier Drop Down -->
                             <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
                             <a href="#">Login <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                             <input type="checkbox" id="drop-2" />
                             <ul>
-                                <li><a href="Customer.jsp">customer</a></li>
-                                <li><a href="seller.jsp">Seller</a></li>
-                                <li><a href="admin.jsp">Admin</a></li>
+                                <li><a href="seller-login.jsp">Seller</a></li>
+                                <li><a href="customer-login.jsp">Customer</a></li>
+                                <li><a href="admin-login.jsp">Admin</a></li>
                             </ul>
                         </li>
                     </ul>
-
-                   <label for="drop" class="toggle">Menu</label>
-                    <input type="checkbox" id="drop" />
-                    <ul class="menu mt-2">
-                       <li><a href="index.html">Home</a></li>
-                        <li>
-                            <!-- First Tier Drop Down -->
-                            <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                            <a href="#">REGISTRATION <span class="fa fa-angle-down" aria-hidden="true"></span></a>
-                            <input type="checkbox" id="drop-2" />
-                            <ul>
-                                <li><a href="Customer.jsp">customer</a></li>
-                                <li><a href="seller.jsp">Seller</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    
-                    
-                    
                 </nav>
                 <!-- //nav -->
             </div>
@@ -100,25 +92,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <li class="breadcrumb-item">
             <a href="index.html">Home</a>
         </li>
-        <li class="breadcrumb-item active">REGISTRATION</li>
+        <li class="breadcrumb-item active">CUSTOMER REGISTRATION</li>
     </ol>
     <!---->
     <!--// mian-content -->
     <!-- banner -->
     <section class="ab-info-main py-5">
         <div class="container py-3">
-            <h3 class="tittle text-center"><span class="sub-tittle"></span>Register</h3>
+            <h3 class="tittle text-center"><span class="sub-tittle"></span>Customer Register</h3>
             <div class="row contact-main-info mt-5">
                 <div class="col-md-12 contact-right-content">
-                    <form action="#" method="post">
-                        <input type="text" name="Name" placeholder="Name" required="">
-                        <input type="email" class="email" name="Email" placeholder="Email" required="">
-                        <input type="text" name="Phone no" placeholder="Phone" required="">
-                        <textarea name="Message" placeholder="Message" required=""></textarea>
+                    <form action="CustomerController" method="post">
+                        <input type="text" name="name" placeholder="Name" required="">
+                        <input type="text" name="contact" placeholder="Contact" required="">
+                        <input type="text" name="address" placeholder="Address" required="">
+                        <input type="email" name="email" placeholder="Email" required="">
+                        <input type="text" name="password" placeholder="Password" required="">
                         <div class="text-center mt-3">
-                            <input type="submit" value="Submit" >
+                            <input type="submit" name="action" value="register" >
                         </div>
                     </form>
+                </div>
+                </div>
                 </div>
                 <!-- <div class="col-md-6 contact-left-content">
                     <div class="address-con">

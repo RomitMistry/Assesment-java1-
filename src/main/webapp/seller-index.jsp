@@ -1,3 +1,4 @@
+<%@page import="model.Seller"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!--
@@ -19,7 +20,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script>
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
-        }, false);d
+        }, false);
 
         function hideURLbar() {
             window.scrollTo(0, 1);
@@ -43,7 +44,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 
 <body>
-
+<%Seller s1 = null;
+if(session.getAttribute("data")!=null){
+	s1 = (Seller)session.getAttribute("data");
+}
+else{
+	response.sendRedirect("seller-login.jsp");
+}
+%>
     <!-- mian-content -->
     <div class="main-banner" id="home">
         <!-- header -->
@@ -58,26 +66,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <label for="drop" class="toggle">Menu</label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu mt-2">
-                        <li class="active"><a href="index.jsp">Home</a></li>
+                        <li class="active"><a href="seller-index.jsp">Home</a></li>
                         <li>
                             <!-- First Tier Drop Down -->
                             <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                            <a href="#">Registration <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                            <a href="#">Product <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                             <input type="checkbox" id="drop-2" />
                             <ul>
-                                <li><a href="seller-registration.jsp">Seller</a></li>
-                                <li><a href="customer-registration.jsp">Customer</a></li>
+                                <li><a href="seller-upload-product.jsp">Upload Product</a></li>
+                                <li><a href="seller-manage-product.jsp">Manage Product</a></li>
                             </ul>
                         </li>
                         <li>
                             <!-- First Tier Drop Down -->
                             <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                            <a href="#">Login <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                            <a href="#"><%=s1.getName() %> <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                             <input type="checkbox" id="drop-2" />
                             <ul>
-                                <li><a href="seller-login.jsp">Seller</a></li>
-                                <li><a href="customer-login.jsp">Customer</a></li>
-                                <li><a href="admin-login.jsp">Admin</a></li>
+                                <li><a href="seller-profile.jsp">Profile</a></li>
+                                <li><a href="seller-change-password.jsp">Change Password</a></li>
+                                <li><a href="seller-logout.jsp">Logout</a></li>
                             </ul>
                         </li>
                     </ul>

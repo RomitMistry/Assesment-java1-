@@ -1,3 +1,9 @@
+<%@page import="dao.ProductDao"%>
+<%@page import="model.Product"%>
+<%@page import="java.util.List"%>
+<%@page import="model.Seller"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -9,7 +15,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html lang="zxx">
 
 <head>
-    <title>Bootie Ecommerce Bootstrap Responsive Web Template | Single :: W3layouts</title>
+    <title>Bootie Ecommerce Bootstrap Responsive Web Template | Shop :: W3layouts</title>
     <!-- Meta tag Keywords -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8" />
@@ -18,7 +24,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         addEventListener("load", function() {
             setTimeout(hideURLbar, 0);
         }, false);
-
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
@@ -41,7 +46,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 
 <body>
-
+<%Seller s1 = null;
+if(session.getAttribute("data")!=null){
+	s1 = (Seller)session.getAttribute("data");
+}
+else{
+	response.sendRedirect("seller-login.jsp");
+}
+%>
     <!-- mian-content -->
     <div class="main-banner inner" id="home">
         <!-- header -->
@@ -56,21 +68,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <label for="drop" class="toggle">Menu</label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu mt-2">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="blog.html">Blog</a></li>
+                        <li class="active"><a href="seller-index.jsp">Home</a></li>
                         <li>
                             <!-- First Tier Drop Down -->
                             <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                            <a href="#">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                            <a href="#">Product <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                             <input type="checkbox" id="drop-2" />
                             <ul>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="shop.html">Shop Now</a></li>
-                                <li><a href="single.html">Single Page</a></li>
+                                <li><a href="seller-upload-product.jsp">Upload Product</a></li>
+                                <li><a href="seller-manage-product.jsp">Manage Product</a></li>
                             </ul>
                         </li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li>
+                            <!-- First Tier Drop Down -->
+                            <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
+                            <a href="#"><%=s1.getName() %> <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                            <input type="checkbox" id="drop-2" />
+                            <ul>
+                                <li><a href="seller-profile.jsp">Profile</a></li>
+                                <li><a href="seller-change-password.jsp">Change Password</a></li>
+                                <li><a href="seller-logout.jsp">Logout</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
                 <!-- //nav -->
@@ -85,76 +104,45 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <li class="breadcrumb-item">
             <a href="index.html">Home</a>
         </li>
-        <li class="breadcrumb-item active">Single Page</li>
+        <li class="breadcrumb-item active">Manage Product</li>
     </ol>
     <!---->
     <!-- banner -->
-    <section class="ab-info-main py-md-5">
+    <section class="ab-info-main py-md-5 py-4">
         <div class="container py-md-3">
-            <h3 class="tittle text-center mb-lg-5 mb-3"> Single Page</h3>
-            <div class="speak px-lg-5">
-                <div class="row mt-lg-5 mt-4">
-                    <div class="col-md-12 events-img">
-                        <img src="images/single.jpg" class="img-fluid" alt="user-image" />
-                    </div>
-                    <div class="col-md-12 events-info my-3">
-                        <h3><span class="sub-tittle">01</span> Tech beauty</h3>
-                        <h4 class="my-3"><a href="#" class="text-dark">VIVAMUS ID TEMPOR FELIS. CRAS SAGITTIS MI SIT AMET</a></h4>
-                        <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                    </div>
-                    <p>Proin eget tortor risus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vivamus suscipit tortor eget felis porttitor volutpat Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vivamus suscipit tortor eget felis porttitor volutpat. Proin eget tortor risus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vivamus suscipit tortor eget felis porttitor volutpat..</p>
-                    <p>Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vivamus suscipit tortor eget felis porttitor volutpat. Proin eget tortor risus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vivamus suscipit tortor eget felis porttitor volutpat..</p>
-                </div>
-                <div class="row my-lg-5 my-3">
-                    <div class="col-md-6 text-info">
-                        <p>Proin eget tortor risus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Vivamus suscipit tortor eget felis porttitor volutpat Quisque velit nisi, pretium ut lacinia in, elementum id enim. Vivamus suscipit tortor eget felis porttitor elementum id enim volutpat...</p>
-                    </div>
-                    <div class="col-md-6 team-img">
-                        <img src="images/img6.jpg" class="img-fluid" alt="user-image" />
-                    </div>
-                </div>
-                <div class="single-form-left">
-                    <!-- contact form grid -->
-                    <div class="contact-single">
-                        <h3><span class="sub-tittle">01</span> Leave a Reply</h3>
-                        <form action="#" method="get" class="mt-4">
-                            <div class="form-group">
-                                <label for="contactcomment">Your Comment *</label>
-                                <textarea class="form-control border" rows="5" id="contactcomment" required=""></textarea>
+            <!-- top Products -->
+            <div class="row">
+                <!-- product left -->
+                <div class="side-bar col-lg-12">
+                   
+                    <!-- deals -->
+                    <div class="deal-leftmk left-side">
+                    <%List<Product> list = ProductDao.getProductListBySid(s1.getId()); %>
+                    <%for(Product p:list){ %>
+                        <h3 class="sear-head">Special Deals</h3>
+                        <div class="special-sec1 row mb-3">
+                            <div class="img-deals col-md-4">
+                                <img src="IMAGE/<%=p.getImage() %>" class="img-fluid" alt="">
                             </div>
-                            <div class="d-sm-flex">
-                                <div class="col-sm-6 form-group p-0">
-                                    <label for="contactusername">Name *</label>
-                                    <input type="text" class="form-control border" id="contactusername" required="">
-                                </div>
-                                <div class="col-sm-6 form-group ml-sm-3">
-                                    <label for="contactemail">Email *</label>
-                                    <input type="email" class="form-control border" id="contactemail" required="">
-                                </div>
+                            <div class="img-deal1 col-md-2">
+                                <h3>Product name  : <%=p.getPname() %></h3>
+                                <h3>Product Category : <%=p.getPcategory() %></h3>
+                                <a href="#">Product Price : <%=p.getPprice() %></a>
                             </div>
-                            <button type="submit" class="mt-3 btn btn-success btn-block py-3">Post Comment</button>
-                        </form>
-                    </div>
-                    <!--  //contact form grid ends here -->
-                </div>
-                <div class="media py-5">
-                    <img src="images/te2.jpg" class="mr-3 img-fluid rounded-circle" alt="image">
-                    <div class="media-body">
-                        <h5 class="mt-0">Daniel Doe</h5>
-                        <p class="mt-2">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-                        </p>
-                        <div class="media mt-5">
-                            <a class="pr-3" href="#">
-                                <img src="images/te1.jpg" class="img-fluid rounded-circle" alt="image">
-                            </a>
-                            <div class="media-body">
-                                <h5 class="mt-0">Leia Organa</h5>
-                                <p class="mt-2"> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla..</p>
+                            <div class="img-deal1 col-md-2">
+                                <a href="seller-update-product.jsp?id=<%=p.getPid() %>" class="btn btn-primary">Edit</a>
                             </div>
+                            <div class="img-deal1 col-md-2">
+                                <a href="ProductController?action=deleteProduct&id=<%=p.getPid() %>" class="btn btn-danger">Delete</a>
+                            </div>
+                          
                         </div>
+                        <%} %>
                     </div>
-                </div>
+                    <!-- //deals -->
 
+                </div>
+                <!-- //product left -->
             </div>
         </div>
     </section>

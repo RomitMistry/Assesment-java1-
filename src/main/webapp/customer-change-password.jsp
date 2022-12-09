@@ -1,3 +1,7 @@
+<%@page import="model.Customer"%>
+<%@page import="model.Seller"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -9,7 +13,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html lang="zxx">
 
 <head>
-    <title>Bootie Ecommerce Bootstrap Responsive Web Template | Contact :: W3layouts</title>
+    <title>Bootie Ecommerce Bootstrap Responsive Web Template | Home :: W3layouts</title>
     <!-- Meta tag Keywords -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8" />
@@ -41,9 +45,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 
 <body>
-
+<%Customer c1 = null;
+if(session.getAttribute("data")!=null){
+	c1 = (Customer)session.getAttribute("data");
+}
+else{
+	response.sendRedirect("seller-login.jsp");
+}
+%>
     <!-- mian-content -->
-    <div class="main-banner inner" id="home">
+    <div class="main-banner" id="home">
         <!-- header -->
         <header class="header">
             <div class="container-fluid px-lg-5">
@@ -52,75 +63,80 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div id="logo">
                         <h1> <a href="index.html"><span class="fa fa-bold" aria-hidden="true"></span>ootie</a></h1>
                     </div>
+
                     <label for="drop" class="toggle">Menu</label>
                     <input type="checkbox" id="drop" />
                     <ul class="menu mt-2">
-                        <!-- <li><a href="index.html">Home</a></li> -->
+                        <li class="active"><a href="seller-index.jsp">Home</a></li>
                         <li>
                             <!-- First Tier Drop Down -->
                             <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                            <a href="#">Login <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                            <a href="#">Product <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                             <input type="checkbox" id="drop-2" />
                             <ul>
-                                <li><a href="Customer.jsp">customer</a></li>
-                                <li><a href="seller.jsp">Seller</a></li>
-                                <li><a href="admin.jsp">Admin</a></li>
+                                <li><a href="seller-registration.jsp">Upload Product</a></li>
+                                <li><a href="customer-registration.jsp">Manage Product</a></li>
                             </ul>
                         </li>
-                    </ul>
-
-                   <label for="drop" class="toggle">Menu</label>
-                    <input type="checkbox" id="drop" />
-                    <ul class="menu mt-2">
-                       <li><a href="index.html">Home</a></li>
                         <li>
                             <!-- First Tier Drop Down -->
                             <label for="drop-2" class="toggle">Drop Down <span class="fa fa-angle-down" aria-hidden="true"></span> </label>
-                            <a href="#">REGISTRATION <span class="fa fa-angle-down" aria-hidden="true"></span></a>
+                            <a href="#"><%=c1.getName() %> <span class="fa fa-angle-down" aria-hidden="true"></span></a>
                             <input type="checkbox" id="drop-2" />
                             <ul>
-                                <li><a href="Customer.jsp">customer</a></li>
-                                <li><a href="seller.jsp">Seller</a></li>
+                                <li><a href="customer-profile.jsp">Profile</a></li>
+                                <li><a href="customer-change-password.jsp">Change Password</a></li>
+                                <li><a href="customerlogout.jsp">Logout</a></li>
                             </ul>
                         </li>
                     </ul>
-                    
-                    
-                    
                 </nav>
                 <!-- //nav -->
             </div>
         </header>
         <!-- //header -->
+        <!--/banner-->
+        <div class="banner-info">
+            <p>Trending of the week</p>
+            <h3 class="mb-4">Casual Shoes for Men</h3>
+            <div class="ban-buttons">
+                <a href="shop-single.html" class="btn">Shop Now</a>
+                <a href="single.html" class="btn active">Read More</a>
+            </div>
+        </div>
+        <!--// banner-inner -->
 
     </div>
     <!--//main-content-->
-    <!---->
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="index.html">Home</a>
-        </li>
-        <li class="breadcrumb-item active">REGISTRATION</li>
-    </ol>
-    <!---->
-    <!--// mian-content -->
-    <!-- banner -->
-    <section class="ab-info-main py-5">
-        <div class="container py-3">
-            <h3 class="tittle text-center"><span class="sub-tittle"></span>Register</h3>
-            <div class="row contact-main-info mt-5">
-                <div class="col-md-12 contact-right-content">
-                    <form action="#" method="post">
-                        <input type="text" name="Name" placeholder="Name" required="">
-                        <input type="email" class="email" name="Email" placeholder="Email" required="">
-                        <input type="text" name="Phone no" placeholder="Phone" required="">
-                        <textarea name="Message" placeholder="Message" required=""></textarea>
-                        <div class="text-center mt-3">
-                            <input type="submit" value="Submit" >
-                        </div>
-                    </form>
-                </div>
-                <!-- <div class="col-md-6 contact-left-content">
+    <!--/ab -->
+  	<section class="ab-info-main py-5">
+		<div class="container py-3">
+			<h3 class="tittle text-center">
+				<span class="sub-tittle"></span>Change Password
+			</h3>
+			<div class="row contact-main-info mt-5">
+				<div class="col-md-12 contact-right-content">
+					<form action="SellerController" method="post">
+					<input type="hidden" name="email" value="<%=c1.getEmail() %>">
+						<input type="text" name="op" placeholder="Old Password" required="">
+						<input type="text" name="np" placeholder="New Password"	required=""> 
+						<input type="text" name="cnp" placeholder="Confirm New Password" required=""> 
+						<div class="text-center mt-3">
+							<input type="submit" name="action" value="update password">
+						</div>
+						<%String msg = (String)request.getAttribute("msg"); %>
+						<%if(msg!=null){ %>
+						<h4><%out.print(msg); %></h4>
+						<%} %>
+						<%String msg1 = (String)request.getAttribute("msgpass"); %>
+						<%if(msg1!=null){ %>
+						<h4><%out.print(msg1); %></h4>
+						<%} %>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="col-md-6 contact-left-content">
                     <div class="address-con">
                         <h4 class="mb-2"><span class="fa fa-phone-square" aria-hidden="true"></span> Phone</h4>
                         <p>+121 098 8907 9987</p>
@@ -149,10 +165,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d423286.27404345275!2d-118.69191921441556!3d34.02016130939095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos+Angeles%2C+CA%2C+USA!5e0!3m2!1sen!2sin!4v1522474296007" allowfullscreen></iframe>
             </div>
         </div> -->
-    </section>
-
-
-    <!-- //contact -->
+	</section>
     <!-- footer -->
     <footer>
         <div class="container">
@@ -276,6 +289,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
     </footer>
     <!-- //footer -->
+
 </body>
 
 </html>

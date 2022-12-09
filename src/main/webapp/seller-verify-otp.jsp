@@ -1,7 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
 <title>Bootie Ecommerce Bootstrap Responsive Web Template |
 	Contact :: W3layouts</title>
@@ -51,45 +57,37 @@
 				<nav class="py-4">
 					<div id="logo">
 						<h1>
-							<a href="Index.jsp"><span class="fa fa-bold"
+							<a href="index.html"><span class="fa fa-bold"
 								aria-hidden="true"></span>ootie</a>
 						</h1>
 					</div>
-					<!-- <label for="drop" class="toggle">Menu</label> <input
-						type="checkbox" id="drop" />
-					<ul class="menu mt-2">
-						<li><a href="Index.jsp">Home</a></li>
-						<li>
-							First Tier Drop Down <label for="drop-2" class="toggle">Drop
-								Down <span class="fa fa-angle-down" aria-hidden="true"></span>
-						</label> <a href="#">Login <span class="fa fa-angle-down"
-								aria-hidden="true"></span></a> <input type="checkbox" id="drop-2" />
-							<ul>
-								<li><a href="Customer.jsp">customer</a></li>
-								<li><a href="seller.jsp">Seller</a></li>
-								<li><a href="admin.jsp">Admin</a></li>
-							</ul>
-						</li>
-					</ul> -->
 
 					<label for="drop" class="toggle">Menu</label> <input
 						type="checkbox" id="drop" />
 					<ul class="menu mt-2">
-						<li><a href="customerindex.jsp">Home</a></li>
-						<!-- <li>
-							First Tier Drop Down <label for="drop-2" class="toggle">Drop
+						<li class="active"><a href="index.jsp">Home</a></li>
+						<li>
+							<!-- First Tier Drop Down --> <label for="drop-2" class="toggle">Drop
 								Down <span class="fa fa-angle-down" aria-hidden="true"></span>
-						</label> <a href="#">REGISTRATION <span class="fa fa-angle-down"
+						</label> <a href="#">Registration <span class="fa fa-angle-down"
 								aria-hidden="true"></span></a> <input type="checkbox" id="drop-2" />
 							<ul>
-								<li><a href="Customer.jsp">customer</a></li>
-								<li><a href="seller.jsp">Seller</a></li>
+								<li><a href="seller-registration.jsp">Seller</a></li>
+								<li><a href="customer-registration.jsp">Customer</a></li>
 							</ul>
-						</li> -->
+						</li>
+						<li>
+							<!-- First Tier Drop Down --> <label for="drop-2" class="toggle">Drop
+								Down <span class="fa fa-angle-down" aria-hidden="true"></span>
+						</label> <a href="#">Login <span class="fa fa-angle-down"
+								aria-hidden="true"></span></a> <input type="checkbox" id="drop-2" />
+							<ul>
+								<li><a href="seller-login.jsp">Seller</a></li>
+								<li><a href="customer-login.jsp">Customer</a></li>
+								<li><a href="admin-login.jsp">Admin</a></li>
+							</ul>
+						</li>
 					</ul>
-
-
-
 				</nav>
 				<!-- //nav -->
 			</div>
@@ -100,8 +98,8 @@
 	<!--//main-content-->
 	<!---->
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="customerindex.jsp">Home</a></li>
-		<li class="breadcrumb-item active">UPDATE PASSWORD</li>
+		<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+		<li class="breadcrumb-item active">SELLER REGISTRATION</li>
 	</ol>
 	<!---->
 	<!--// mian-content -->
@@ -109,38 +107,28 @@
 	<section class="ab-info-main py-5">
 		<div class="container py-3">
 			<h3 class="tittle text-center">
-				<span class="sub-tittle"></span>UPDATE PASSWORD
+				<span class="sub-tittle"></span>Seller Register
 			</h3>
 			<div class="row contact-main-info mt-5">
 				<div class="col-md-12 contact-right-content">
-					<form action="customercontroller" method="post">
-						<input type="text"  name="op" placeholder="CURRENT PASSWORD" required="">
-		                <input type="text" name="np" placeholder=" NEW PASSWORD" required="">
-		                <input type="text" name="cnp" placeholder=" CONFIRM NEW PASSWORD" required="">
+				<%String data =  (String)request.getAttribute("otpmsg"); %>
+				<%if(data!=null){ %>
+					<%out.print(data); %>
+				<%} %>
+				<%String email = (String)request.getAttribute("email"); %>
+				<%int otp1 = (Integer)(request.getAttribute("otp")); %>
+					<form action="SellerController" method="post">
+						<input type="hidden" name="email" value="<%=email%>">
+						<input type="hidden" name="otp1" value="<%=otp1%>">
+						<input type="text" name="otp2" placeholder="Enter OTP" required="">
 						<div class="text-center mt-3">
-							<input type="submit" value="updatepassword"  name="action">
-							  
+							<input type="submit" name="action" value="verify">
 						</div>
-							<%String msg = (String)request.getAttribute("msg"); %>
-						<%if(msg!=null){ %>
-						<h4><%out.print(msg); %></h4>
-						<%} %>
-						<%String msg1 = (String)request.getAttribute("msgpass"); %>
-						<%if(msg1!=null){ %>
-						<h4><%out.print(msg1); %></h4>
-						<%} %>
 					</form>
 				</div>
-			<%-- 	 <%String regmsg = (String)request.getAttribute("regmsg"); %>
-            	<%if(regmsg!=null){ %>
-            		<%out.print(regmsg); %>
-            	<%} %>
-            	
-            	<%String msg1 = (String)request.getAttribute("validate"); %>
-            	<%if(msg1!=null){ %>
-            		<%out.print(msg1); %>
-            	<%} %>   --%>
-				<!-- <div class="col-md-6 contact-left-content">
+			</div>
+		</div>
+		<!-- <div class="col-md-6 contact-left-content">
                     <div class="address-con">
                         <h4 class="mb-2"><span class="fa fa-phone-square" aria-hidden="true"></span> Phone</h4>
                         <p>+121 098 8907 9987</p>
@@ -174,12 +162,12 @@
 
 	<!-- //contact -->
 	<!-- footer -->
-	<!-- <footer>
+	<footer>
 		<div class="container">
 			<div class="row footer-top">
 				<div class="col-lg-4 footer-grid_section_w3layouts">
 					<h2 class="logo-2 mb-lg-4 mb-3">
-						<a href="Index.jsp"><span class="fa fa-bold"
+						<a href="index.html"><span class="fa fa-bold"
 							aria-hidden="true"></span>ootie</a>
 					</h2>
 					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -219,7 +207,7 @@
 						<div class="col-md-4 footer-grid_section_w3layouts">
 							<h3 class="footer-title text-uppercase text-wh mb-lg-4 mb-3">Information</h3>
 							<ul class="list-unstyled w3layouts-icons">
-								<li><a href="Index.jsp">Home</a></li>
+								<li><a href="index.html">Home</a></li>
 								<li class="mt-3"><a href="about.html">About Us</a></li>
 								<li class="mt-3"><a href="#">Gallery</a></li>
 								<li class="mt-3"><a href="#">Services</a></li>
@@ -227,7 +215,7 @@
 							</ul>
 						</div>
 						<div class="col-md-4 footer-grid_section_w3layouts">
-							social icons
+							<!-- social icons -->
 							<div class="agileinfo_social_icons">
 								<h3 class="footer-title text-uppercase text-wh mb-lg-4 mb-3">Customer
 									Service</h3>
@@ -240,7 +228,7 @@
 									<li class="mt-3"><a href="#">Privacy Plolicy</a></li>
 								</ul>
 							</div>
-							social icons
+							<!-- social icons -->
 						</div>
 						<div class="col-md-4 footer-grid_section_w3layouts my-md-0 my-5">
 							<h3 class="footer-title text-uppercase text-wh mb-lg-4 mb-3">Contact
@@ -270,15 +258,16 @@
 							© 2019 Bootie. All rights reserved | Design by <a
 								href="http://w3layouts.com"> W3layouts.</a>
 						</p>
-						move top icon
+						<!-- move top icon -->
 						<a href="#home" class="move-top text-right col-md-2"><span
 							class="fa fa-long-arrow-up" aria-hidden="true"></span></a>
-						//move top icon
+						<!-- //move top icon -->
 					</div>
 				</div>
 			</div>
 		</div>
 	</footer>
-	//footer -->
+	<!-- //footer -->
 </body>
+
 </html>

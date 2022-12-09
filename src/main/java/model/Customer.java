@@ -1,6 +1,6 @@
 package model;
 
-public class Seller {
+public class Customer {
 	private int id;
 	private String name,address,email,password;
 	private long contact;
@@ -42,7 +42,7 @@ public class Seller {
 	}
 	@Override
 	public String toString() {
-		return "Seller [id=" + id + ", name=" + name + ", address=" + address + ", email=" + email + ", password="
+		return "Customer [id=" + id + ", name=" + name + ", address=" + address + ", email=" + email + ", password="
 				+ password + ", contact=" + contact + "]";
 	}
 	
